@@ -1,20 +1,6 @@
 #include "cub3d.h"
 
-char	*ft_strdup(char *str)
-{
-	char	*res;
-	int		i;
 
-	i = -1;
-	while (str[++i])
-		i++;
-	res = my_malloc((i + 1) * sizeof (char), 0);
-	i = -1;
-	while (str[++i])
-		res[i] = str[i];
-	res[i] = 0;
-	return (res);
-}
 
 char	*gnl(int fd)
 {
