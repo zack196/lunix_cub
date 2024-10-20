@@ -1,57 +1,65 @@
-#ifndef CUB3D_H
-# define CUB3D_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zakaria <zakaria@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/19 12:08:29 by zel-oirg           #+#    #+#             */
+/*   Updated: 2024/10/19 12:08:30 by zel-oirg          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <fcntl.h>
-# include "mlx_linux/mlx.h"
+#ifndef CUB3D
+# define CUB3D
+
 # include <unistd.h>
+# include <stdio.h>
+# include "mlx.h"
+# include <stdlib.h>
 
-#ifndef BUFFER_SIZE
-#define BUFFER_SIZE 99
-#endif
-
-#define TILE_SIZE 32
-
-typedef struct	s_data
-{
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}	t_data;
+#define HEIGHT 600
+#define WIDTH 460
 
 typedef struct s_gdata
 {
     void			*data;
     struct s_gdata	*next;
-}	t_gdata;
+}   t_gdata;
+
+void	*my_malloc(size_t size, int free_mode);
+void	my_free(void);
+
+typedef struct	s_data {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}				t_data;
 
 typedef struct s_cub
 {
-    char	*texture_no;
-    char	*texture_so;
-    char	*texture_we;
-    char	*texture_ea;
-    char	**maps;
-
-    int		F_COLOR;
-    int		C_COLOR;
-
-	int		width;
-	int		height;
+	char	**map;
 
 	void	*mlx;
 	void	*mlx_win;
-	t_data	img;
+	t_data	image;
+
+	int		width_map;
+	int		height_map;
+	int		h_tile_size;
+	int		v_tile_size;
 
 }	t_cub;
 
-void	*my_malloc(size_t size, int free_mode);
-int		parce_cub(t_cub *cub, char *file_name);
-char	*gnl(int fd);
-void	my_free(void);
-int ft_strlen(char *str);
-char	*ft_strdup(char *str);
+
+
+
+char	*ft_strdup(const char *s1);
+size_t	ft_strlen(const char *str);
+int		clean_all(t_cub *cub);
+
+/*tmp function*/
+char    **tmp_map(t_cub *cub);
 #endif
