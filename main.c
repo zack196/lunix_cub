@@ -4,9 +4,9 @@ int	clean_all(t_cub *cub)
 {
 	mlx_destroy_image(cub->mlx, cub->image.img);
 	mlx_destroy_window(cub->mlx, cub->mlx_win);
-	mlx_destroy_display(cub->mlx);
+	// mlx_destroy_display(cub->mlx);
+	mlx_loop_end(cub->mlx);
 	my_free();
-	exit(0);
 	return (0);
 }
 
@@ -39,18 +39,14 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 
 int	check_map(t_cub *cub, int x, int y)
 {
-	if (x >= cub->height_map)
-	{
-		return (1);
-	}
-	if ((int)ft_strlen(cub->map[x]) < y)
-	{
-		return (1);
-	}
-	return (0);
-}
 
-void	render_cub(t_cub *cub)
+	if (x > cub->height_map || y >cub->width_map)
+		return (0);
+	if (y > (int)ft_strlen(cub->map[x]))
+		return (0); 
+	return (1);
+}
+void	render_map(t_cub *cub)
 {
 	int	i;
 	int	j;
@@ -65,28 +61,83 @@ void	render_cub(t_cub *cub)
 		j = -1;
 		while (++j < HEIGHT)
 		{
-			x_map_cord = i / cub->v_tile_size;
-			y_map_cord = j / cub->h_tile_size;
-			if (check_map(cub, x_map_cord, y_map_cord))
-				my_mlx_pixel_put(&cub->image, j, i , 0X23F12A);
-			else if (cub->map[x_map_cord][y_map_cord] == '0')
-				my_mlx_pixel_put(&cub->image, j, i , 0X98A321);
-			else if (cub->map[x_map_cord][y_map_cord] == '1')
-				my_mlx_pixel_put(&cub->image, j, i , 0X23F12A);
-			else 
-				my_mlx_pixel_put(&cub->image, j, i , 0X23F12A);
+			x_map_cord = j / cub->h_tile_size;
+			y_map_cord = i / cub->v_tile_size;
+			// printf("y_map = %d x_map = %d\n", y_map_cord, x_map_cord);
+			if (check_map(cub, x_map_cord, y_map_cord)
+				&& cub->map[x_map_cord][y_map_cord] == '0')
+			{
+				// printf("in\n");
+				my_mlx_pixel_put(&cub->image, i, j, 0XFFFFFF);
+			}
+			// else
+			// 	my_mlx_pixel_put(&cub->image, i, j, 0XFEA091);
 		}
 	}
 	mlx_put_image_to_window(cub->mlx, cub->mlx_win, cub->image.img, 0, 0);
 }
+
+int	check_player(t_cub *cub, int x, int y)
+{
+	if (cub->map[x][y] == 'N')
+		return (1);
+	if (cub->map[x][y] == 'S')
+		return (1);
+	if (cub->map[x][y] == 'E')
+		return (1);
+	if (cub->map[x][y] == 'W')
+		return (1);
+	return (0);
+}
+
+void	render_player(t_cub *cub)
+{
+	int	x_map;
+	int	y_map;
+	int	i;
+	int	j;
+
+	x_map = -1;
+	y_map = -1;
+	while (cub->map[++x_map])
+	{
+		y_map = -1;
+		while (cub->map[x_map][++y_map])
+			if (check_player(cub, x_map, y_map))
+				break ;
+		if (check_player(cub, x_map, y_map))
+			break ;
+	}
+	cub->player = my_malloc(sizeof (t_player), 0);
+	cub->player->x_player = x_map * cub->h_tile_size + cub->h_tile_size / 2;
+	cub->player->y_player = y_map * cub->v_tile_size + cub->v_tile_size / 2;
+	i = y_map * cub->v_tile_size - 1;
+	while (++i < (y_map + 1) * cub->v_tile_size)
+	{
+		j = x_map * cub->h_tile_size - 1;
+		while (++j < (x_map + 1) * cub->h_tile_size)
+		{
+			if ((i - cub->player->y_player) * (i - cub->player->y_player) + 
+				(j - cub->player->x_player) * (j - cub->player->x_player) < 100)
+				my_mlx_pixel_put(&cub->image, i, j, 0XAF4184);
+			else
+				my_mlx_pixel_put(&cub->image, i, j, 0XFFFFFF);
+		}
+	}
+	mlx_put_image_to_window(cub->mlx, cub->mlx_win, cub->image.img
+	, 0, 0);
+}
+
 int	main()
 {
     t_cub	cub;
 
     cub.map = tmp_map(&cub);
+	sizing_map(&cub);
 	if (handel_mlx(&cub))
-		return (my_free(), 1);
-	render_cub(&cub);
+		return (my_free(), 1);	
+	render_map(&cub);
+	render_player(&cub);
 	mlx_loop(cub.mlx);
 	my_free();
 }

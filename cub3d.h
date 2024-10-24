@@ -19,7 +19,7 @@
 # include <stdlib.h>
 
 #define HEIGHT 600
-#define WIDTH 460
+#define WIDTH 1600
 
 typedef struct s_gdata
 {
@@ -38,19 +38,25 @@ typedef struct	s_data {
 	int		endian;
 }				t_data;
 
+typedef struct s_player
+{
+	int		x_player;
+	int		y_player;
+	float	player_rot;
+
+}	t_player;
+
 typedef struct s_cub
 {
-	char	**map;
-
-	void	*mlx;
-	void	*mlx_win;
-	t_data	image;
-
-	int		width_map;
-	int		height_map;
-	int		h_tile_size;
-	int		v_tile_size;
-
+	char		**map;
+	void		*mlx;
+	void		*mlx_win;
+	t_data		image;
+	int			width_map;
+	int			height_map;
+	int			h_tile_size;
+	int			v_tile_size;
+	t_player	*player;
 }	t_cub;
 
 
@@ -59,7 +65,9 @@ typedef struct s_cub
 char	*ft_strdup(const char *s1);
 size_t	ft_strlen(const char *str);
 int		clean_all(t_cub *cub);
+void	sizing_map(t_cub *cub);
+
 
 /*tmp function*/
-char    **tmp_map(t_cub *cub);
+char    **tmp_map();
 #endif
