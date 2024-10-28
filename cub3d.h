@@ -6,7 +6,7 @@
 /*   By: zel-oirg <zel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 12:35:48 by zel-oirg          #+#    #+#             */
-/*   Updated: 2024/10/27 18:01:58 by zel-oirg         ###   ########.fr       */
+/*   Updated: 2024/10/28 14:06:19 by zel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,14 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	init_player(t_cub *cub);
 void	draw_rot_line(t_cub *cub);
 void	update_player(t_cub *cub, int up_down, int right_left, int turn);
+void	cast_rays(t_cub *cub);
 int		key_hook(int keycode, t_cub *cub);
 int		check_player(t_cub *cub, int x, int y);
 int		key_release(int keycode, t_cub *cub);
 int		key_press(int keycode, t_cub *cub);
 int		clean_all(t_cub *cub);
-void	cast_rays(t_cub *cub);
-
+int		is_wall(t_cub *cub, int x, int y);
+void	render_ray(t_cub *cub);
 
 /*tmp function*/
 char	**tmp_map();

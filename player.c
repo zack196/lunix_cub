@@ -6,7 +6,7 @@
 /*   By: zel-oirg <zel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 13:00:58 by zel-oirg          #+#    #+#             */
-/*   Updated: 2024/10/28 12:42:36 by zel-oirg         ###   ########.fr       */
+/*   Updated: 2024/10/28 14:21:19 by zel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,7 @@ int	check_player(t_cub *cub, int x, int y)
 		return (0);
 }
 
-void	cast_rays(t_cub *cub)
-{
-	int		i;
-	float	angle;
 
-    cub->player->rays = my_malloc(NBR_RAYS * sizeof (t_ray), 0);
-	i = 0;
-	angle = -(FOV_ANGLE / 2 - cub->player->player_rot);
-	while (++i < NBR_RAYS)
-	{
-		cub->player->rays[i].angle = angle;
-		cub->player->x_player = cub->player->x_player;
-		cub->player->y_player = cub->player->y_player;
-		angle += FOV_ANGLE / NBR_RAYS;
-	}	
-}
 
 void	init_rot_player(t_cub *cub, int x_map, int y_map)
 {
@@ -78,57 +63,27 @@ void	init_player(t_cub *cub)
 	cub->player->y_map_player = y_map;
 }
 
-void	render_ray(t_cub *cub)
-{
-	int		i;
-	int		j;
-	float	x_end;
-	float	y_end;
-	float	x_step;
-	float	y_step;
-	float	x;
-	float	y;
 
-	i = -1;
-	while (++i < NBR_RAYS)
-	{
-		x_end = cub->player->x_player + cos(cub->player->rays[i].angle) * 30;
-		y_end = cub->player->y_player + sin(cub->player->rays[i].angle) * 30;
-		x_step = x_end - cub->player->x_player;
-		y_step = y_end - cub->player->y_player;
-		x_step /= 30;
-		y_step /= 30;
-		x = cub->player->x_player;
-		y = cub->player->y_player;
-		j = -1;
-		while (++j < 30)
-		{
-			my_mlx_pixel_put(&cub->image, (int)y, (int)x, 0x000000);
-			x += x_step;
-			y += y_step;
-		}
-	}
-}
 
 void	render_player(t_cub *cub)
 {
-	int	i;
-	int	j;
+	int	x;
+	int	y;
 
-	i = -1;
-	while (++i < WIDTH)
+	x = -1;
+	while (++x < WIDTH)
 	{
-		j = - 1;
-		while (++j < HEIGHT)
+		y = - 1;
+		while (++y < HEIGHT)
 		{
-			if ((i - cub->player->y_player) * (i - cub->player->y_player) +
-				(j - cub->player->x_player) * (j - cub->player->x_player) < 36)
-				my_mlx_pixel_put(&cub->image, i, j, 0X000000);
+			if ((x - cub->player->x_player) * (x - cub->player->x_player) +
+				(y - cub->player->y_player) * (y - cub->player->y_player) < 36)
+				my_mlx_pixel_put(&cub->image, x, y, 0X000000);
 		}
 	}
 	draw_rot_line(cub);
 	cast_rays(cub);
-	// render_ray(cub);
+	render_ray(cub);
 	mlx_put_image_to_window(cub->mlx, cub->mlx_win, cub->image.img
 	, 0, 0);
 }

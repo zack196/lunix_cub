@@ -15,29 +15,37 @@ int	check_map(t_cub *cub, int x, int y)
 	return (1);
 }
 
-void	render_map(t_cub *cub)
+int	is_wall(t_cub *cub, int x, int y)
 {
-	int	i;
-	int	j;
 	int	x_map_cord;
 	int	y_map_cord;
 
+	x_map_cord = y / cub->h_tile_size;
+	y_map_cord = x / cub->v_tile_size;
+	if (!check_map(cub, x_map_cord, y_map_cord))
+		return (1);
+	if (cub->map[x_map_cord][y_map_cord] == '1')
+		return (1);
+	return (0);
+}
+
+void	render_map(t_cub *cub)
+{
+	int	x;
+	int	y;
+	
+	x = -1;
 	cub->h_tile_size = HEIGHT / cub->height_map;
 	cub->v_tile_size = WIDTH / cub->width_map;
-	i = -1;
-	while (++i < WIDTH)
+	while (++x < WIDTH)
 	{
-		j = -1;
-		while (++j < HEIGHT)
+		y = -1;
+		while (++y < HEIGHT)
 		{
-			x_map_cord = j / cub->h_tile_size;
-			y_map_cord = i / cub->v_tile_size;
-			if (check_map(cub, x_map_cord, y_map_cord)
-				&& (cub->map[x_map_cord][y_map_cord] == '0'
-				|| check_player(cub, x_map_cord, y_map_cord)))
-				my_mlx_pixel_put(&cub->image, i, j, 0XFFFFFF);
+			if (is_wall(cub, x, y))
+				my_mlx_pixel_put(&cub->image, x, y, 0XAAEEAA);
 			else
-				my_mlx_pixel_put(&cub->image, i, j, 0XAAEEAA);
+				my_mlx_pixel_put(&cub->image, x, y, 0XFFFFFF);
 		}
 	}
 	mlx_put_image_to_window(cub->mlx, cub->mlx_win, cub->image.img, 0, 0);

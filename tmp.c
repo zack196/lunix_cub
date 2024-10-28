@@ -6,7 +6,7 @@
 /*   By: zel-oirg <zel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 12:35:34 by zel-oirg          #+#    #+#             */
-/*   Updated: 2024/10/26 16:20:43 by zel-oirg         ###   ########.fr       */
+/*   Updated: 2024/10/28 13:44:46 by zel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	sizing_map(t_cub *cub)
 		i++;
 	}
 	cub->height_map = i;
+	printf("width = %d and height = %d\n", cub->width_map, cub->height_map);
 }
 
 

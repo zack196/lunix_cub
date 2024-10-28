@@ -48,86 +48,11 @@
 			"typeName": "page"
 		},
 		{
-			"x": 615.4212163361526,
-			"y": 1002.633870767228,
-			"rotation": 0,
-			"isLocked": false,
-			"opacity": 1,
-			"meta": {},
-			"id": "shape:WDI3CCrV-qQSVyPa8-NNy",
-			"type": "draw",
-			"props": {
-				"segments": [
-					{
-						"type": "free",
-						"points": [
-							{
-								"x": 0,
-								"y": 0,
-								"z": 0.5
-							},
-							{
-								"x": 6.59,
-								"y": 11.15,
-								"z": 0.5
-							},
-							{
-								"x": 23.08,
-								"y": 91.72,
-								"z": 0.5
-							},
-							{
-								"x": 32.04,
-								"y": 204.1,
-								"z": 0.5
-							},
-							{
-								"x": 50.37,
-								"y": 327.09,
-								"z": 0.5
-							},
-							{
-								"x": 64.26,
-								"y": 460.69,
-								"z": 0.5
-							},
-							{
-								"x": 68.77,
-								"y": 616.02,
-								"z": 0.5
-							},
-							{
-								"x": 68.77,
-								"y": 643.07,
-								"z": 0.5
-							},
-							{
-								"x": 68.77,
-								"y": 664.33,
-								"z": 0.5
-							}
-						]
-					}
-				],
-				"color": "black",
-				"fill": "none",
-				"dash": "draw",
-				"size": "m",
-				"isComplete": true,
-				"isClosed": false,
-				"isPen": false,
-				"scale": 1
-			},
-			"parentId": "page:page",
-			"index": "ad8kf",
-			"typeName": "shape"
-		},
-		{
 			"id": "pointer:pointer",
 			"typeName": "pointer",
-			"x": 5468.350951138398,
-			"y": 3792.2771527719765,
-			"lastActivityTimestamp": 1730115708787,
+			"x": 1321.4371520050981,
+			"y": 1590.0559712504537,
+			"lastActivityTimestamp": 1730117096489,
 			"meta": {}
 		},
 		{
@@ -137,7 +62,7 @@
 			"brush": null,
 			"scribbles": [],
 			"cursor": {
-				"type": "default",
+				"type": "cross",
 				"rotation": 0
 			},
 			"isFocusMode": false,
@@ -147,8 +72,8 @@
 			"screenBounds": {
 				"x": 0,
 				"y": 0,
-				"w": 795.8333129882812,
-				"h": 524.3055419921875
+				"w": 742.361083984375,
+				"h": 640.2777709960938
 			},
 			"insets": [
 				false,
@@ -189,8 +114,8 @@
 			"typeName": "instance_page_state"
 		},
 		{
-			"x": 133.8078623381639,
-			"y": 405.1511309194299,
+			"x": 649.7542542449019,
+			"y": 1197.3787211323588,
 			"z": 0.1,
 			"meta": {},
 			"id": "camera:page:page",

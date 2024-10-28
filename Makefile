@@ -4,7 +4,7 @@ CC=cc
 
 CFLAG=-Wall -Wextra -Werror #-fsanitize=address -g3 
 
-SRC = main.c libft.c my_malloc.c tmp.c events.c map.c player.c 
+SRC = main.c libft.c my_malloc.c tmp.c events.c map.c player.c ray.c
 
 OBJ=$(SRC:.c=.o)
 
