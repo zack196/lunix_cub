@@ -6,7 +6,7 @@
 /*   By: zel-oirg <zel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 12:35:29 by zel-oirg          #+#    #+#             */
-/*   Updated: 2024/10/27 16:41:54 by zel-oirg         ###   ########.fr       */
+/*   Updated: 2024/10/28 16:27:50 by zel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	clean_all(t_cub *cub)
 	exit(0);
 	return (0);
 }
-
 
 int	handel_mlx(t_cub *cub)
 {

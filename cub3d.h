@@ -6,7 +6,7 @@
 /*   By: zel-oirg <zel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 12:35:48 by zel-oirg          #+#    #+#             */
-/*   Updated: 2024/10/28 14:06:19 by zel-oirg         ###   ########.fr       */
+/*   Updated: 2024/10/28 16:34:51 by zel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,9 @@ int		key_press(int keycode, t_cub *cub);
 int		clean_all(t_cub *cub);
 int		is_wall(t_cub *cub, int x, int y);
 void	render_ray(t_cub *cub);
+float	normalize_angle(float angle);
+
+
 
 /*tmp function*/
 char	**tmp_map();

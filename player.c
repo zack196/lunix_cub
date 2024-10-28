@@ -6,7 +6,7 @@
 /*   By: zel-oirg <zel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 13:00:58 by zel-oirg          #+#    #+#             */
-/*   Updated: 2024/10/28 14:21:19 by zel-oirg         ###   ########.fr       */
+/*   Updated: 2024/10/28 16:14:10 by zel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ int	check_player(t_cub *cub, int x, int y)
 void	init_rot_player(t_cub *cub, int x_map, int y_map)
 {
 	if (cub->map[x_map][y_map] == 'N')
-		cub->player->player_rot = 2 * M_PI / 2;
-	else if (cub->map[x_map][y_map] == 'S')
-		cub->player->player_rot = 0 * M_PI / 2;
-	else if (cub->map[x_map][y_map] == 'W')
 		cub->player->player_rot = 3 * M_PI / 2;
-	else if (cub->map[x_map][y_map] == 'E')
+	else if (cub->map[x_map][y_map] == 'S')
 		cub->player->player_rot = 1 * M_PI / 2;
+	else if (cub->map[x_map][y_map] == 'W')
+		cub->player->player_rot = 2 * M_PI / 2;
+	else if (cub->map[x_map][y_map] == 'E')
+		cub->player->player_rot = 0 * M_PI / 2;
 }
 
 void	init_player(t_cub *cub)
@@ -76,16 +76,15 @@ void	render_player(t_cub *cub)
 		y = - 1;
 		while (++y < HEIGHT)
 		{
-			if ((x - cub->player->x_player) * (x - cub->player->x_player) +
-				(y - cub->player->y_player) * (y - cub->player->y_player) < 36)
+			if ((x - cub->player->y_player) * (x - cub->player->y_player) +
+				(y - cub->player->x_player) * (y - cub->player->x_player) < 36)
 				my_mlx_pixel_put(&cub->image, x, y, 0X000000);
 		}
 	}
-	draw_rot_line(cub);
+	// draw_rot_line(cub);
 	cast_rays(cub);
 	render_ray(cub);
-	mlx_put_image_to_window(cub->mlx, cub->mlx_win, cub->image.img
-	, 0, 0);
+	mlx_put_image_to_window(cub->mlx, cub->mlx_win, cub->image.img, 0, 0);
 }
 
 void draw_rot_line(t_cub *cub)
