@@ -34,16 +34,18 @@ void	update_player(t_cub *cub, int up_down, int right_left, int turn)
 	y_new_pos = 0;
 	if (up_down)
 	{
-		x_new_pos = cub->player->x_player + up_down * sin(cub->player->player_rot) * 10;
-		y_new_pos = cub->player->y_player + up_down * cos(cub->player->player_rot) * 10;
+		x_new_pos =
+			cub->player->x_player + up_down * sin(cub->player->player_rot) * 5;
+		y_new_pos =
+			cub->player->y_player + up_down * cos(cub->player->player_rot) * 5;
 	}
 	else if (right_left)
 	{
-		x_new_pos = cub->player->x_player + right_left * cos(cub->player->player_rot) * 10;
-		y_new_pos = cub->player->y_player - right_left * sin(cub->player->player_rot) * 10;
+		x_new_pos = cub->player->x_player + right_left * cos(cub->player->player_rot) * 5;
+		y_new_pos = cub->player->y_player - right_left * sin(cub->player->player_rot) * 5;
 	}
-	else
-		cub->player->player_rot = normalize_angle(turn * (9 * M_PI / 180) + cub->player->player_rot);
+	else if (turn)
+		cub->player->player_rot = normalize_angle(turn * (3 * M_PI / 180) + cub->player->player_rot);
 	if ((up_down || right_left) && !is_wall(cub, y_new_pos, x_new_pos))
 	{
 		cub->player->x_player = (int)x_new_pos;
@@ -60,17 +62,17 @@ int	key_press(int keycode, t_cub *cub)
 	up_down = 0;
 	right_left = 0;
 	turn = 0;
-	if (keycode == 0)//a
+	if (keycode == 97)//0)//a
 		right_left = -1;
-	else if (keycode == 1)//s
+	else if (keycode == 115)//1)//s
 		up_down = -1;
-	else if (keycode == 2)//d
+	else if (keycode == 100)//2)//d
 		right_left = 1;
-	else if (keycode == 13)//w
+	else if (keycode == 119)//13)//w
 		up_down = 1;
-	else if (keycode == 123)
+	else if (keycode == 65361)//123)
 		turn -= 1;
-	else if (keycode == 124)
+	else if (keycode == 65363)//124)
 		turn -= -1;
 	update_player(cub, up_down, right_left, turn);
 	render_map(cub);

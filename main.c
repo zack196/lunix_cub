@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zel-oirg <zel-oirg@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zakaria <zakaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 12:35:29 by zel-oirg          #+#    #+#             */
-/*   Updated: 2024/10/28 16:27:50 by zel-oirg         ###   ########.fr       */
+/*   Updated: 2024/10/30 21:23:37 by zakaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,8 @@ int	clean_all(t_cub *cub)
 {
 	mlx_destroy_image(cub->mlx, cub->image.img);
 	mlx_destroy_window(cub->mlx, cub->mlx_win);
-	// mlx_destroy_display(cub->mlx);
+	mlx_destroy_display(cub->mlx);
 	my_free();
-	
 	exit(0);
 	return (0);
 }
@@ -30,7 +29,7 @@ int	handel_mlx(t_cub *cub)
 		return (1);
 	cub->mlx_win = mlx_new_window(cub->mlx, WIDTH, HEIGHT, "cub");
 	if (!cub->mlx_win)
-		return (/*mlx_destroy_display(cub->mlx), */1);
+		return (mlx_destroy_display(cub->mlx), 1);
 	cub->image.img = mlx_new_image(cub->mlx, WIDTH, HEIGHT);
 	// check if the mlx_new_image
 	cub->image.addr = mlx_get_data_addr(cub->image.img

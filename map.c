@@ -42,8 +42,10 @@ void	render_map(t_cub *cub)
 		y = -1;
 		while (++y < HEIGHT)
 		{
-			if (is_wall(cub, x, y))
-				my_mlx_pixel_put(&cub->image, x, y, 0XAAEEAA);
+			if (x % cub->v_tile_size == 0 || y % cub->h_tile_size == 0)
+				my_mlx_pixel_put(&cub->image, x, y, 0XA1B2C3);
+			else if (is_wall(cub, x, y))
+				my_mlx_pixel_put(&cub->image, x, y, 0XAAE3AA);
 			else
 				my_mlx_pixel_put(&cub->image, x, y, 0XFFFFFF);
 		}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zel-oirg <zel-oirg@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zakaria <zakaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 12:35:48 by zel-oirg          #+#    #+#             */
-/*   Updated: 2024/10/28 16:34:51 by zel-oirg         ###   ########.fr       */
+/*   Updated: 2024/10/31 18:01:37 by zakaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 # include "mlx.h"
 # include <stdlib.h>
 
-# define HEIGHT 1000
-# define WIDTH 1900
+# define HEIGHT 700
+# define WIDTH 1600
 # define WALL_STRIP_WIDTH 1
 # define FOV_ANGLE 60 * (M_PI / 180)
 # define NBR_RAYS  WIDTH / WALL_STRIP_WIDTH
@@ -44,9 +44,19 @@ typedef struct	s_data {
 
 typedef struct s_ray
 {
+	int	is_facing_down;
+	int	is_facing_up;
+	int	is_facing_left;
+	int	is_facing_right;
+	
 	float	angle;
-	int		x_player;
-	int		y_player;
+	
+	float	x_horizontal_wall_hit;
+	float	y_horizontal_wall_hit;
+
+	float	x_vertical_wall_hit;
+	float	y_vertical_wall_hit;
+	
 }	t_ray;
 
 typedef struct s_player
@@ -87,11 +97,11 @@ int		check_player(t_cub *cub, int x, int y);
 int		key_release(int keycode, t_cub *cub);
 int		key_press(int keycode, t_cub *cub);
 int		clean_all(t_cub *cub);
+void	draw_line(t_cub *cub, int x_end, int y_end, int color);
 int		is_wall(t_cub *cub, int x, int y);
 void	render_ray(t_cub *cub);
 float	normalize_angle(float angle);
-
-
+float	distance_2ptn(float A_x, float A_y, float B_x, float B_y);
 
 /*tmp function*/
 char	**tmp_map();

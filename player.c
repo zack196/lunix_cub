@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zel-oirg <zel-oirg@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zakaria <zakaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 13:00:58 by zel-oirg          #+#    #+#             */
-/*   Updated: 2024/10/28 16:14:10 by zel-oirg         ###   ########.fr       */
+/*   Updated: 2024/10/31 18:01:48 by zakaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ int	check_player(t_cub *cub, int x, int y)
 		return (0);
 }
 
-
-
 void	init_rot_player(t_cub *cub, int x_map, int y_map)
 {
 	if (cub->map[x_map][y_map] == 'N')
@@ -46,6 +44,7 @@ void	init_player(t_cub *cub)
 	int	y_map;
 
 	x_map = -1;
+	y_map = -1;
 	while (cub->map[++x_map])
 	{
 		y_map = -1;
@@ -56,11 +55,13 @@ void	init_player(t_cub *cub)
 			break ;
 	}
 	cub->player = my_malloc(sizeof (t_player), 0);
+    cub->player->rays = my_malloc(NBR_RAYS * sizeof (t_ray), 0);
 	init_rot_player(cub, x_map, y_map);
 	cub->player->x_player = x_map * cub->h_tile_size + cub->h_tile_size / 2;
 	cub->player->y_player = y_map * cub->v_tile_size + cub->v_tile_size / 2;
 	cub->player->x_map_player = x_map;
 	cub->player->y_map_player = y_map;
+	
 }
 
 
@@ -81,35 +82,22 @@ void	render_player(t_cub *cub)
 				my_mlx_pixel_put(&cub->image, x, y, 0X000000);
 		}
 	}
-	// draw_rot_line(cub);
-	cast_rays(cub);
-	render_ray(cub);
+	draw_rot_line(cub);
+	// cast_rays(cub);
+	// render_ray(cub);
 	mlx_put_image_to_window(cub->mlx, cub->mlx_win, cub->image.img, 0, 0);
 }
 
 void draw_rot_line(t_cub *cub)
 {
-    t_player *player = cub->player;
+	float		x_end;
+	float		y_end;
+    t_player	*player;
 
+	player = cub->player;
     // Calculate end coordinates using player rotation
-    float x_end = player->x_player + 30 * cos(player->player_rot);
-    float y_end = player->y_player + 30 * sin(player->player_rot);
-
-    // Calculate step size for smooth line
-	float x_step = x_end - player->x_player;
-	float y_step = y_end - player->y_player;
-	x_step /= 30;
-	y_step /= 30;
-
-	// Initialize starting point
-	float x = player->x_player;
-	float y = player->y_player;
-
-	// Draw line segment
-	for (int i = 0; i < 30; i++)
-	{
-		my_mlx_pixel_put(&cub->image, (int)y, (int)x, 0x000000);
-		x += x_step;
-		y += y_step;
-	}
+    x_end = player->x_player + 1 * cos(player->player_rot);
+    y_end = player->y_player + 1 * sin(player->player_rot);
+    draw_line(cub, x_end, y_end, 0);
+	// Calculate step size for smooth line
 }
